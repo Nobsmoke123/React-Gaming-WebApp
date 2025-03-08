@@ -1,7 +1,18 @@
+/**
+ *
+ * @param index
+ * @returns string
+ */
 export const getVideoSource = (index: number) => {
   return `videos/hero-${index}.mp4`;
 };
 
+/**
+ *
+ * @param setHasClicked
+ * @param setCurrentIndex
+ * @returns void
+ */
 export const handleMiniVideoPlayerClickEvent =
   (
     setHasClicked: React.Dispatch<React.SetStateAction<boolean>>,
@@ -12,11 +23,15 @@ export const handleMiniVideoPlayerClickEvent =
     setCurrentIndex((prevIndex) => (prevIndex === 3 ? 0 : prevIndex + 1));
   };
 
+/**
+ *
+ * @param setLoadedVideos
+ * @returns void
+ */
 export const handleVideoLoad =
   (
-    currentIndex: number,
     setLoadedVideos: React.Dispatch<React.SetStateAction<number>>
   ): React.ReactEventHandler<HTMLVideoElement> =>
   () => {
-    setLoadedVideos(currentIndex);
+    setLoadedVideos((prev) => prev + 1);
   };
