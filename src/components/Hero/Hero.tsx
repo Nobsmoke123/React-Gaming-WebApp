@@ -4,6 +4,8 @@ import {
   handleMiniVideoPlayerClickEvent,
   handleVideoLoad,
 } from "./HeroHandlers";
+import Button from "../Button/Button";
+import { TiLocation } from "react-icons/ti";
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -81,9 +83,20 @@ const Hero = () => {
             <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
               Enter the Metagame Layer <br /> Unleash the Play Economy.
             </p>
+
+            <Button
+              id="watch-trailer"
+              title="watch Trailer"
+              leftIcon={<TiLocation />}
+              containerClass="bg-yellow-300 flex-center gap-1"
+            />
           </div>
         </div>
       </div>
+
+      <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
+        G<b>a</b>ming
+      </h1>
     </div>
   );
 };
