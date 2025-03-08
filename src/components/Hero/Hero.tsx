@@ -1,4 +1,9 @@
 import { useRef, useState } from "react";
+import {
+  getVideoSource,
+  handleMiniVideoPlayerClickEvent,
+  handleVideoLoad,
+} from "./HeroHandlers";
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,19 +18,6 @@ const Hero = () => {
 
   const nextVideoRef = useRef(null);
 
-  const handleMiniVideoPlayerClick = () => {
-    setHasClicked(true);
-    setCurrentIndex((prevIndex) => (prevIndex === 3 ? 0 : prevIndex + 1));
-  };
-
-  const getVideoSource = (index: number) => {
-    return `videos/hero-${index}.mp4`;
-  };
-
-  const handleVideoLoad = () => {
-    setLoadedVideos(currentIndex);
-  };
-
   //   h-dvh = height dynamic view height
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
@@ -36,7 +28,11 @@ const Hero = () => {
         <div>
           <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
             <div
-              onClick={handleMiniVideoPlayerClick}
+              onClick={(() =>
+                handleMiniVideoPlayerClickEvent(
+                  setHasClicked,
+                  setCurrentIndex
+                ))()}
               className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
             >
               <video
@@ -46,7 +42,8 @@ const Hero = () => {
                 muted
                 id="current-video"
                 className="size-64 origin-center scale-150 object-cover object-center"
-                onLoadedData={handleVideoLoad}
+                onLoadedData={(() =>
+                  handleVideoLoad(currentIndex, setLoadedVideos))()}
               />
             </div>
           </div>
@@ -58,7 +55,8 @@ const Hero = () => {
             muted
             id="next-video"
             className="absolute-center invisible absolute z-20 size-64 object-center object-cover"
-            onLoadedData={handleVideoLoad}
+            onLoadedData={(() =>
+              handleVideoLoad(currentIndex, setLoadedVideos))()}
           />
 
           <video
