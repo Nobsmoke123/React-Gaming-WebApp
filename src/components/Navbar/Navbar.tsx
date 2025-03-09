@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import { NAV_ITEMS } from "./Navbar.constants";
 import { useWindowScroll } from "react-use";
 import gsap from "gsap";
+import { toggleAudioButtonClickHandler } from "./NavbarHandlers";
 
 const Navbar = () => {
   const navContainerRef = useRef<HTMLDivElement>(null);
@@ -15,11 +16,6 @@ const Navbar = () => {
   const [isNavVisible, setIsNavVisible] = useState(true);
 
   const { y: currentScrollY } = useWindowScroll();
-
-  const toggleAudioButtonClickHandler = () => {
-    setIsAudioPlaying((prev) => !prev);
-    setIsIndicatorActive((prev) => !prev);
-  };
 
   useEffect(() => {
     if (isAudioPlaying && audioElementRef.current) {
@@ -87,7 +83,11 @@ const Navbar = () => {
             </div>
             <button
               className="ml-10 flex items-center space-x-0.5"
-              onClick={toggleAudioButtonClickHandler}
+              onClick={(() =>
+                toggleAudioButtonClickHandler(
+                  setIsAudioPlaying,
+                  setIsIndicatorActive
+                ))()}
             >
               <audio
                 src="/audio/loop.mp3"
@@ -96,15 +96,17 @@ const Navbar = () => {
                 loop
               />
 
-              {[1, 2, 3, 4].map((bar) => (
-                <div
-                  key={bar}
-                  className={`indicator-line ${
-                    isIndicatorActive ? "active" : ""
-                  }`}
-                  style={{ animationDelay: `${bar * 0.1}s` }}
-                />
-              ))}
+              <div className="flex justify-evenly items-center rounded-full gap-1 w-7 h-7 p-1 cursor-pointer">
+                {[1, 2, 3, 4].map((bar) => (
+                  <div
+                    key={bar}
+                    className={`indicator-line ${
+                      isIndicatorActive ? "active" : ""
+                    }`}
+                    style={{ animationDelay: `${bar * 0.1}s` }}
+                  />
+                ))}
+              </div>
             </button>
           </div>
         </nav>
