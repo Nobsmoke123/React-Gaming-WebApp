@@ -1,4 +1,5 @@
 import About from "./components/About/About";
+import Features from "./components/Features/Features";
 import Hero from "./components/Hero/Hero";
 import Navbar from "./components/Navbar/Navbar";
 
@@ -8,6 +9,7 @@ const App = () => {
       <Navbar />
       <Hero />
       <About />
+      <Features />
     </main>
   );
 };
