@@ -2,7 +2,11 @@ import { useEffect, useRef } from "react";
 import { AnimatedTitleProps } from "./AnimatedTitle.interface";
 import gsap from "gsap";
 
-const AnimatedTitle = ({ title, containerClass }: AnimatedTitleProps) => {
+const AnimatedTitle = ({
+  title,
+  containerClass,
+  sectionId,
+}: AnimatedTitleProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,7 +33,11 @@ const AnimatedTitle = ({ title, containerClass }: AnimatedTitleProps) => {
   }, []);
 
   return (
-    <div ref={containerRef} className={`animated-title ${containerClass}`}>
+    <div
+      ref={containerRef}
+      className={`animated-title ${containerClass}`}
+      id={sectionId ? sectionId : ""}
+    >
       {title.split("<br />").map((line: string, index: number) => (
         <div
           key={index}
